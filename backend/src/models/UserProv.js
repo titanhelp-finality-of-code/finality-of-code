@@ -31,4 +31,3 @@ const UserProv = sequelize.define('UserProv', {
 });
 
 module.exports = UserProv;
-

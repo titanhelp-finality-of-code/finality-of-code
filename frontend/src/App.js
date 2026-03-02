@@ -3,9 +3,13 @@ import TicketList from "./pages/TicketList";
 import TicketForm from "./pages/TicketForm";
 import TicketDetail from "./pages/TicketDetail";
 import MyTickets from "./pages/MyTickets";
+import Navbar from "./components/Navbar";
+
 function App() {
   return (
     <Router>
+      <Navbar />
+
       <Routes>
         <Route path="/tickets" element={<TicketList />} />
         <Route path="/tickets/new" element={<TicketForm />} />

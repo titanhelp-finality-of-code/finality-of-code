@@ -1,15 +1,39 @@
-import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-export default function TicketForm() {
+export default function EditTicket() {
+  const { id } = useParams();
+
+  const mockTicket = {
+    inc_id: id,
+    short_des: "Printer not working",
+    lond_des: "The printer in the main office is not responding. Tried restarting it twice.",
+    priority_id: 1,
+    state_id: 1001,
+    user_id: 1100001,
+    added_ts: "2026-03-01 10:00:00",
+    mod_ts: "2026-03-01 10:30:00"
+  };
+
   const [form, setForm] = useState({
     short_des: "",
     lond_des: "",
     priority_id: "",
     state_id: "",
-    user_id: "1100001" // mock user for now
+    user_id: ""
   });
 
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    setForm({
+      short_des: mockTicket.short_des,
+      lond_des: mockTicket.lond_des,
+      priority_id: mockTicket.priority_id,
+      state_id: mockTicket.state_id,
+      user_id: mockTicket.user_id
+    });
+  }, [id]);
 
   const validate = () => {
     const newErrors = {};
@@ -50,13 +74,13 @@ export default function TicketForm() {
     e.preventDefault();
     if (!validate()) return;
 
-    console.log("Form submitted:", form);
-    alert("Ticket submitted (mock). Backend integration coming later.");
+    console.log("Updated ticket:", form);
+    alert("Ticket updated (mock). Backend integration coming later.");
   };
 
   return (
     <div style={{ maxWidth: "600px", margin: "0 auto" }}>
-      <h1>Create New Ticket</h1>
+      <h1>Edit Ticket #{id}</h1>
 
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: "20px" }}>
@@ -133,7 +157,7 @@ export default function TicketForm() {
             cursor: "pointer"
           }}
         >
-          Submit Ticket
+          Update Ticket
         </button>
       </form>
     </div>

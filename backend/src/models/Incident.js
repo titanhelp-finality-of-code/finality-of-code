@@ -27,6 +27,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     added_ts: {
+        type: Sequelize.DATETIME,
+        allowNull: false,
+        defaultValue: Sequelize.NOW
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW

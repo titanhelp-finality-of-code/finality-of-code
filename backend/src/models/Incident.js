@@ -29,12 +29,12 @@ const Incident = sequelize.define('Incident', {
         allowNull: false
     },
     added_ts: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATETIME,
         allowNull: false,
         defaultValue: Sequelize.NOW
     },
     mod_ts: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATETIME,
         allowNull: false,
         defaultValue: Sequelize.NOW
     }

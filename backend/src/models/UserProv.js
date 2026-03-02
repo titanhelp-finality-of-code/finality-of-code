@@ -17,12 +17,12 @@ const UserProv = sequelize.define('UserProv', {
         allowNull: false
     },
     added_ts: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATETIME,
         allowNull: false,
         defaultValue: DataTypes.NOW
     },
     mod_ts: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATETIME,
         allowNull: false,
         defaultValue: DataTypes.NOW
     }

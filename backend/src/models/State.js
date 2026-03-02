@@ -1,20 +1,18 @@
 // Data Access Layer: Implement Sequelize model here
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
-
-const State = sequelize.define('State', {
+module.exports = (sequelize, DataTypes) => {
+  const State = sequelize.define("State", {
     state_id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+      type: DataTypes.INTEGER,
+      primaryKey: true
     },
     state_type: {
-        type: DataTypes.STRING,
-        allowNull: false
+      type: DataTypes.STRING,
+      allowNull: false
     }
-}, {
-    tableName: 'state',
+  }, {
+    tableName: "state",
     timestamps: false
-});
+  });
 
-module.exports = State;
+  return State;
+};

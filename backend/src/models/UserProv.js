@@ -1,33 +1,32 @@
 // Data Access Layer: Implement Sequelize model here
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
-
-const UserProv = sequelize.define('UserProv', {
+module.exports = (sequelize, DataTypes) => {
+  const UserProv = sequelize.define("UserProv", {
     prov_id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+      type: DataTypes.INTEGER,
+      primaryKey: true
     },
     prov_type: {
-        type: DataTypes.STRING,
-        allowNull: false
+      type: DataTypes.STRING,
+      allowNull: false
     },
-    sec_level: {
-        type: DataTypes.INTEGER,
-        allowNull: false
+    sec_lev: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
     added_ts: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW
     },
     mod_ts: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW
     }
-}, {
-    tableName: 'user_prov'
-});
+  }, {
+    tableName: "user_prov",
+    timestamps: false
+  });
 
-module.exports = UserProv;
+  return UserProv;
+};

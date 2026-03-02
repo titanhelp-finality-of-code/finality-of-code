@@ -1,45 +1,47 @@
 // Data Access Layer: Implement Sequelize model here
-const Sequelize = require('sequelize');
-const sequelize = require('../backend/database');
-
-const Incident = sequelize.define('Incident', {
+module.exports = (sequelize, DataTypes) => {
+  const Incident = sequelize.define("Incident", {
     inc_id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
     },
-    user_id: {
-        type: Sequelize.STRING,
-        allowNull: false
+    short_des: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
-    state_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+    lond_des: {
+      type: DataTypes.TEXT,
+      allowNull: false
     },
     priority_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
-    short_desc: {
-        type: Sequelize.STRING,
-        allowNull: false
+    state_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
-    long_desc: {
-        type: Sequelize.TEXT,
-        allowNull: false
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
     added_ts: {
-        type: Sequelize.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.NOW
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW
     },
     mod_ts: {
-        type: Sequelize.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.NOW
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW
     }
-}, {    
-    tableName: 'incident',
-});
-
-module.exports = Incident;
+  }, {
+    tableName: "incident",
+    timestamps: false,
+    hooks: {
+      beforeCreate: (incident) => {
+        incident.added_ts = new Date();
+        incident.mod_ts = new Date();
+      }
+    }},)}

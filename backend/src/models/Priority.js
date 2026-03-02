@@ -1,20 +1,22 @@
 // Data Access Layer: Implement Sequelize model here
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
-
-const Priority = sequelize.define('Priority', {
+module.exports = (sequelize, DataTypes) => {
+  const Priority = sequelize.define("Priority", {
     priority_id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+      type: DataTypes.INTEGER,
+      primaryKey: true
     },
-    priority_name: {
-        type: DataTypes.STRING,
-        allowNull: false
-    }   
-}, {
-    tableName: 'priority',
+    priority_type: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    sla_time: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
+  }, {
+    tableName: "priority",
     timestamps: false
-}); 
+  });
 
-module.exports = Priority;
+  return Priority;
+};

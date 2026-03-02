@@ -1,21 +1,28 @@
 // Data Access Layer: Define model associations here
-const UserAdmin = require('./UserAdmin');
-const UserProv = require('./UserProv');
-const State = require('./State');
-const Priority = require('./Priority');
-const Incident = require('./Incident');
+const { Sequelize, DataTypes } = require("sequelize");
+const config = require("../config/database");
 
-// Example associations (adjust as needed)
-UserAdmin.belongsTo(UserProv, { foreignKey: 'prov_id' });
-Incident.belongsTo(UserAdmin, { foreignKey: 'user_id' });
-Incident.belongsTo(State, { foreignKey: 'state_id' });
-Incident.belongsTo(Priority, { foreignKey: 'priority_id' });
+const sequelize = new Sequelize(config);
+
+const Incident = require("./Incident")(sequelize, DataTypes);
+const Priority = require("./Priority")(sequelize, DataTypes);
+const State = require("./State")(sequelize, DataTypes);
+const UserAdmin = require("./UserAdmin")(sequelize, DataTypes);
+const UserProv = require("./UserProv")(sequelize, DataTypes);
+
+// Incident relationships
+Incident.belongsTo(Priority, { foreignKey: "priority_id" });
+Incident.belongsTo(State, { foreignKey: "state_id" });
+Incident.belongsTo(UserAdmin, { foreignKey: "user_id" });
+
+// User relationships
+UserAdmin.belongsTo(UserProv, { foreignKey: "prov_id" });
 
 module.exports = {
-    UserAdmin,
-    UserProv,
-    State,
-    Priority,
-    Incident
+  sequelize,
+  Incident,
+  Priority,
+  State,
+  UserAdmin,
+  UserProv
 };
-

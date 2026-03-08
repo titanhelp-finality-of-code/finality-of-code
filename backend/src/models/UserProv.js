@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     prov_id: {
       type: DataTypes.INTEGER,
       primaryKey: true
+      autoIncrement: true
     },
     prov_type: {
       type: DataTypes.STRING,

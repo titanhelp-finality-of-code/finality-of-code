@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const Priority = sequelize.define("Priority", {
     priority_id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
     priority_type: {
       type: DataTypes.STRING,

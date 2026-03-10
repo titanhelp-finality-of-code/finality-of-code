@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const UserAdmin = sequelize.define("UserAdmin", {
     user_id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
     first_name: {
       type: DataTypes.STRING,

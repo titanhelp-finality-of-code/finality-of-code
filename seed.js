@@ -1,4 +1,7 @@
-const { sequelize, UserProv, UserAdmin, Priority, State, Incident } = require("./models");
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, "backend", ".env") });
+process.env.DB_STORAGE = path.join(__dirname, "backend", "db.db");
+const { sequelize, UserProv, UserAdmin, Priority, State, Incident } = require("./backend/src/models");
 
 const seedDatabase = async () => {
     try {
@@ -23,14 +26,18 @@ const seedDatabase = async () => {
         });
         console.log("Created Admin: " + newAdmin.first_name);
 
-        // 4. Create Priorities
-        const highPriority = await Priority.create({
-            priority_type: "High",
-            sla_time: "4 Hours"
-        });
+        // 4. Create Priorities (Low / Medium / High)
         const lowPriority = await Priority.create({
             priority_type: "Low",
             sla_time: "48 Hours"
+        });
+        const mediumPriority = await Priority.create({
+            priority_type: "Medium",
+            sla_time: "24 Hours"
+        });
+        const highPriority = await Priority.create({
+            priority_type: "High",
+            sla_time: "4 Hours"
         });
         console.log("Created Priorities");
 
@@ -39,8 +46,7 @@ const seedDatabase = async () => {
         const resolvedState = await State.create({ state_type: "Resolved" });
         console.log("Created States");
 
-        // 6. Create an Initial Incident
-        // Note: Matches 'lond_des' from your Incident.js model
+        // 6. Create sample Incidents
         await Incident.create({
             short_des: "System Slowdown",
             long_des: "The EHR system is experiencing high latency in the oncology wing.",
@@ -48,7 +54,21 @@ const seedDatabase = async () => {
             state_id: openState.state_id,
             user_id: newAdmin.user_id
         });
-        console.log("Created Initial Incident");
+        await Incident.create({
+            short_des: "Printer not working",
+            long_des: "The printer on the 3rd floor is offline and not responding to print jobs.",
+            priority_id: mediumPriority.priority_id,
+            state_id: openState.state_id,
+            user_id: newAdmin.user_id
+        });
+        await Incident.create({
+            short_des: "Password reset request",
+            long_des: "User needs password reset for their workstation login.",
+            priority_id: lowPriority.priority_id,
+            state_id: resolvedState.state_id,
+            user_id: newAdmin.user_id
+        });
+        console.log("Created Sample Incidents");
 
         console.log("\nDatabase seeded successfully!");
         process.exit(0);

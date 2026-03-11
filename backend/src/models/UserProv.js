@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const UserProv = sequelize.define("UserProv", {
     prov_id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
       autoIncrement: true
     },
     prov_type: {

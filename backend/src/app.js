@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const { sequelize } = require("./models");
 
-// Import empty route files (safe)
+// Import route modules
 const incidentRoutes = require("./routes/incidentRoutes");
 const userRoutes = require("./routes/userRoutes");
 const stateRoutes = require("./routes/stateRoutes");
@@ -17,7 +17,7 @@ app.get("/health", (req, res) => {
     res.status(200).json({ status: "UP", timestamp: new Date() });
 });
 
-// Mount the empty routes (safe)
+// Mount API routes
 app.use("/api/incidents", incidentRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/states", stateRoutes);
@@ -33,7 +33,6 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Load models + associations (DAL teammate will fill these later)
 const PORT = process.env.PORT || 3001;
 
 async function startServer() {

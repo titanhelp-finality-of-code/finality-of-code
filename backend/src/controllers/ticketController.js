@@ -55,6 +55,63 @@ const ticketController = {
         } catch (error) {
             res.status(error.status || 500).json({ error: error.message });
         }
+    },
+
+    // --- Priority ---
+    getAllPriorities: async (req, res) => {
+        try {
+            const priorities = await ticketService.getAllPriorities();
+            res.json(priorities);
+        } catch (error) {
+            res.status(error.status || 500).json({ error: error.message });
+        }
+    },
+
+    getPriorityById: async (req, res) => {
+        try {
+            const priority = await ticketService.getPriorityById(req.params.id);
+            res.json(priority);
+        } catch (error) {
+            res.status(error.status || 500).json({ error: error.message });
+        }
+    },
+
+    // --- State ---
+    getAllStates: async (req, res) => {
+        try {
+            const states = await ticketService.getAllStates();
+            res.json(states);
+        } catch (error) {
+            res.status(error.status || 500).json({ error: error.message });
+        }
+    },
+
+    getStateById: async (req, res) => {
+        try {
+            const state = await ticketService.getStateById(req.params.id);
+            res.json(state);
+        } catch (error) {
+            res.status(error.status || 500).json({ error: error.message });
+        }
+    },
+
+    // --- User ---
+    getAllUsers: async (req, res) => {
+        try {
+            const users = await ticketService.getAllUsers();
+            res.json(users);
+        } catch (error) {
+            res.status(error.status || 500).json({ error: error.message });
+        }
+    },
+
+    deleteUser: async (req, res) => {
+        try {
+            await ticketService.deleteUser(req.params.id);
+            res.status(200).json({ message: "User deleted successfully" });
+        } catch (error) {
+            res.status(error.status || 500).json({ error: error.message });
+        }
     }
 };
 

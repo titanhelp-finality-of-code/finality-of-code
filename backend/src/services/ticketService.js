@@ -88,6 +88,40 @@ const ticketService = {
             },
             include: [Priority, State, UserAdmin]
         });
+    },
+
+    // --- Priority ---
+    getAllPriorities: async () => {
+        return await Priority.findAll();
+    },
+
+    getPriorityById: async (id) => {
+        const priority = await Priority.findByPk(id);
+        if (!priority) throw serviceError("Priority not found", 404);
+        return priority;
+    },
+
+    // --- State ---
+    getAllStates: async () => {
+        return await State.findAll();
+    },
+
+    getStateById: async (id) => {
+        const state = await State.findByPk(id);
+        if (!state) throw serviceError("State not found", 404);
+        return state;
+    },
+
+    // --- User ---
+    getAllUsers: async () => {
+        return await UserAdmin.findAll({
+            attributes: { exclude: ["password"] }
+        });
+    },
+
+    deleteUser: async (id) => {
+        const deleted = await UserAdmin.destroy({ where: { user_id: id } });
+        if (!deleted) throw serviceError("User not found", 404);
     }
 };
 

@@ -1,8 +1,6 @@
 // Data Access Layer: Define model associations here
-const { Sequelize, DataTypes } = require("sequelize");
-const config = require("../config/database");
-
-const sequelize = new Sequelize(config);
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
 
 const Incident = require("./Incident")(sequelize, DataTypes);
 const Priority = require("./Priority")(sequelize, DataTypes);
